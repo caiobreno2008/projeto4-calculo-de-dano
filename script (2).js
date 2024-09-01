@@ -1,34 +1,28 @@
-const pers1 = prompt('Defina o nome do seu personagem.')
-const pers2 = prompt('Defina o nome de outro personagem.')
-let attackPower = parseInt(prompt(`Quanto vale o poder de ataque de ${pers1}?`))
-let life = parseInt(prompt(`Quantos pontos de vida ${pers2} tem?`))
-let defensePower = parseInt(prompt(`Quantos pontos de defesa ${pers2} tem?`))
-let haveShield = confirm(`${pers2} tem um escudo?`)
-let difference = 0
-let damage = 0
-let damageInlife = 0
+const pers1 = 'Herói'; // Nome do primeiro personagem
+const pers2 = 'Vilão'; // Nome do segundo personagem
+const attackPower = 50; // Poder de ataque do pers1
+const life = 100; // Pontos de vida do pers2
+const defensePower = 30; // Pontos de defesa do pers2
+const haveShield = true; // Se pers2 tem um escudo ou não
 
-if (attackPower > defensePower &&  haveShield === false) {
-    difference = attackPower - defensePower
-    damage = difference
-    damageInlife = damage - life
-    if (damageInlife < 0) {
-        damageInlife *= -1
-        alert(`${pers1} atacou. ${pers2} sofreu ${damage} de dano e não possui escudo. Sua vida agora é ${damageInlife}`) 
+let damage = 0;
+let remainingLife = 0;
+
+if (attackPower > defensePower) {
+    if (haveShield) {
+        damage = (attackPower - defensePower) / 2;
     } else {
-        alert(`${pers1} atacou. ${pers2} sofreu ${damage} de dano e não possui escudo. Sua vida agora é ${damageInlife}`) 
+        damage = attackPower - defensePower;
     }
     
-} else if (attackPower > defensePower && haveShield === true) {
-    difference = (attackPower - defensePower) / 2
-    damage = difference
-    damageInlife = damage - life
-    if (damageInlife < 0) {
-        damageInlife *= -1
-        alert(`${pers1} atacou. ${pers2} sofreu ${damage} de dano e possui um escudo. Sua vida agora é ${damageInlife}`) 
+    remainingLife = life - damage;
+
+    if (remainingLife < 0) {
+        remainingLife = 0;
+        console.log(`${pers1} atacou. ${pers2} sofreu ${damage} de dano e sua vida agora é ${remainingLife}.`);
     } else {
-        alert(`${pers1} atacou. ${pers2} sofreu ${damage} de dano e possui um escudo. Sua vida agora é ${damageInlife}`) 
+        console.log(`${pers1} atacou. ${pers2} sofreu ${damage} de dano. Sua vida agora é ${remainingLife}.`);
     }
-} else if (attackPower <= defensePower) {
-    alert(`${pers1} atacou, mas não afetou ${pers2}. Nenhum dano causado!`)
+} else {
+    console.log(`${pers1} atacou, mas não afetou ${pers2}. Nenhum dano causado!`);
 }
